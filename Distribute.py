@@ -33,6 +33,3 @@ def sortNodeList(NodeList):
     NodeList.sort(key=itemgetter(0))
     return NodeList
 
-# if __name__ == "__main__":
-#     NL = [[0,0],[1,1],[2,2],[3,3]]
-#     print(distributeNodes(NL,5))
