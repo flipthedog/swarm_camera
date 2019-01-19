@@ -14,7 +14,8 @@ while 1:
     edge = process.edgeDetection(gray)
     inv = process.invertImage(edge)
 
-    cv.imshow("Live", contour)
+    print(inv.shape)
+    cv.imshow("Live", inv)
     if cv.waitKey(1) & 0xFF == ord('y'):
         print("Exiting")
         cv.destroyAllWindows()

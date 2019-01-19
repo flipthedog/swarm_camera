@@ -19,7 +19,7 @@ class Board:
 
         for particle in self.swarm:
             # print("Drawing at: " + str(particle.x) + ", " + str(particle.y))
-            pygame.draw.circle(screen, color, [int(particle.x), int(particle.y)], 2, 0)
+            pygame.draw.circle(screen, color, [int(particle.x), int(particle.y)], 3, 0)
 
     def update(self):
 
@@ -44,3 +44,30 @@ class Board:
 
         for particle in self.swarm:
             particle.setGoal(x, y)
+
+    def chooseGoals(self, goals):
+
+        for particle in self.swarm:
+            partx = particle.x
+            party = particle.y
+
+            shortest_d = 999999
+            shortest_goal = goals[0]
+
+            newGoals = []
+
+            for goal in goals:
+                x = goal[0]
+                y = goal[1]
+
+                dist = abs(partx - x) + abs(party - y)
+
+                if dist < shortest_d:
+                    newGoals.append(shortest_goal)
+                    shortest_d = dist
+                    shortest_goal = goal
+                else:
+                    newGoals.append(goal)
+
+            particle.setGoal(shortest_goal[0], shortest_goal[1])
+            goals = newGoals
