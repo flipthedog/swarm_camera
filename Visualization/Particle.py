@@ -20,6 +20,8 @@ class Particle():
         self.goaly = y
         self.velocity_mag = 5  # Speed of the particles
 
+        self.color = [255,255,255]
+
     def setGoal(self, x, y):
         self.goalx = x
         self.goaly = y
@@ -34,7 +36,24 @@ class Particle():
             self.vx = self.velocity_mag * (math.cos(angle))
 
         else:
-            if self.distanceToGoal() > self.velocity_mag:
+            distance = self.distanceToGoal()
+            if distance > self.velocity_mag:
+
+                color_scalar = (distance) / (self.height + self.width)
+
+                g = int(255*color_scalar)
+                r = int(255 - 255*color_scalar)-150
+
+                #r = r*r
+                g = g*g
+                if r>255:
+                    r = 255
+                if g>255:
+                    g = 255
+                if r<0:
+                    r = 0
+
+                self.color = [255-r, 255-g, 255]
 
                 angle = math.atan2((self.goaly - self.y), (self.goalx - self.x))
 

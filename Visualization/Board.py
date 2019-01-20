@@ -17,9 +17,9 @@ class Board:
 
 
     def draw(self, screen):
-        color = pygame.Color(8, 146, 208, 255)
 
         for particle in self.swarm:
+            color = pygame.Color(particle.color[0], particle.color[1], particle.color[2], 255)
             # print("Drawing at: " + str(particle.x) + ", " + str(particle.y))
             pygame.gfxdraw.aacircle(screen, int(particle.x), int(particle.y), 5, color)
             pygame.gfxdraw.filled_circle(screen, int(particle.x), int(particle.y), 5, color)
