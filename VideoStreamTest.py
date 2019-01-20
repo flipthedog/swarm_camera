@@ -15,7 +15,8 @@ while 1:
     inv = process.invertImage(edge)
 
     #print(inv.shape)
-    cv.imshow("Live", inv)
+    # resize = inv[250:350, 200:400]
+    cv.imshow("Live",contour)
     if cv.waitKey(1) & 0xFF == ord('y'):
         print("Exiting")
         cv.destroyAllWindows()

@@ -1,11 +1,12 @@
 import pygame
 from Visualization import Particle
 import random
+import time
 
 class Board:
 
     def __init__(self, width, height, particle_number):
-        self.swarm = pygame.sprite.Group()
+        self.swarm = []
         self.width = width
         self.height = height
         self.particle_number = particle_number
@@ -23,7 +24,8 @@ class Board:
 
     def update(self):
 
-        self.swarm.update()
+        for particle in self.swarm:
+            particle.update()
 
     def addswarmparticle(self):
         x = random.randint(0, self.width)
@@ -31,7 +33,7 @@ class Board:
 
         p = Particle.Particle(x, y, self.width, self.height)
 
-        self.swarm.add(p)
+        self.swarm.append(p)
 
     def setRandomGoals(self):
 
@@ -46,7 +48,7 @@ class Board:
             particle.setGoal(x, y)
 
     def chooseGoals(self, goals):
-
+        start = time.time()
         for particle in self.swarm:
             partx = particle.x
             party = particle.y
@@ -71,3 +73,6 @@ class Board:
 
             particle.setGoal(shortest_goal[0], shortest_goal[1])
             goals = newGoals
+        end = time.time()
+
+        # print("Time taken: " + str(end - start))
