@@ -94,10 +94,14 @@ class Particle():
 
         if self.x > self.width:
             self.x = self.width
+        elif self.x < 0:
+            self.x = 0
         else:
             self.x += self.vx
 
         if self.y > self.height:
             self.y = self.height
+        elif self.y < 0:
+            self.y = 0
         else:
             self.y += self.vy
