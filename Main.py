@@ -83,7 +83,7 @@ random_distr = RandomDistribution.RandomDistribution(swarm_number)
 
 t = _thread.start_new_thread(calc_goals, (cap,random_goals, inv_image, board))
 
-cv.imshow("Live", inv_image.get())
+# cv.imshow("Live", inv_image.get())
 # Main Loop
 while 1:
 
