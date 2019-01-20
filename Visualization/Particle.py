@@ -35,6 +35,7 @@ class Particle():
 
         else:
             if self.distanceToGoal() > self.velocity_mag:
+
                 angle = math.atan2((self.goaly - self.y), (self.goalx - self.x))
 
                 # noise_factor = self.velocity_mag / 10
@@ -42,9 +43,13 @@ class Particle():
                 noise_1 = random.uniform(-noise_factor , noise_factor)
                 noise_2 = random.uniform(-noise_factor , noise_factor)
 
-                self.vy = self.velocity_mag * (math.sin(angle)) + noise_1
+                slow_down_scale = 15
+                slow_down_y = slow_down_scale * (abs(self.y - self.goaly) / self.height) + 0.1
+                slow_down_x = slow_down_scale * (abs(self.x - self.goalx) / self.width) + 0.1
 
-                self.vx = self.velocity_mag * (math.cos(angle)) + noise_2
+                self.vy = self.velocity_mag * (math.sin(angle)) * slow_down_y + noise_1
+
+                self.vx = self.velocity_mag * (math.cos(angle)) * slow_down_x + noise_2
             else:
                 self.vy = 0
                 self.vx = 0
@@ -68,6 +73,12 @@ class Particle():
         if self.y < 0 or self.y > self.height:
             self.vy = -self.vy
 
+        if self.x > self.width:
+            self.x = self.width
+        else:
+            self.x += self.vx
 
-        self.x += self.vx
-        self.y += self.vy
+        if self.y > self.height:
+            self.y = self.height
+        else:
+            self.y += self.vy
