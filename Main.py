@@ -3,36 +3,22 @@ import sys
 from swarm_camera.Visualization import Board
 import cv2 as cv
 from swarm_camera.ImageProcessing import process_image as process
+from swarm_camera.Distribution import RandomDistribution
 import random
 
+# Helper Functions
 def draw(screen):
-    screen.fill((32,34,38))
-    board.draw(screen)
-    pygame.display.update()
+    screen.fill((32, 34, 38)) # Reset screen
+    board.draw(screen) # Draw function
+    pygame.display.update() # Update screen
 
-def update(distr_goals):
+def update(random_distr):
     # (x, y) = pygame.mouse.get_pos()
     # board.setGoalAll(x, y)
-    board.chooseGoals(distr_goals)
+    board.chooseGoals(random_distr) # Choose goals, using specific distribution
     board.update()
 
-
-def find_black_pixels(image):
-    return_arr = []
-
-    height, width = image.shape
-
-    for i in range(0, width):
-
-        for j in range(0, height):
-
-            if image[j][i] == 0:
-                pixel = [i,j]
-                return_arr.append(pixel)
-
-    return return_arr
-
-
+# Initializations
 pygame.init()
 timer = pygame.time.Clock()
 cap = cv.VideoCapture(0)
@@ -42,24 +28,11 @@ height, width, channels = small.shape
 swarm_number = 500
 board = Board.Board(width, height, swarm_number)
 screen = pygame.display.set_mode([width, height])
-
-
-def random_distribution(black_pixel_array):
-
-    return_arr = []
-
-    length = len(black_pixel_array)
-
-    for i in range(0, swarm_number):
-
-        randomnum = random.randint(0,length - 1)
-
-        return_arr.append(black_pixel_array[randomnum])
-
-    return return_arr
+random_distr = RandomDistribution.RandomDistribution(swarm_number)
 
 i = 0
 
+# Main Loop
 while 1:
 
     # Event getter loop
@@ -68,6 +41,7 @@ while 1:
             sys.exit()
 
     if i % 5 == 0:
+
         ret, frame = cap.read()
         small = cv.resize(frame, (0, 0), fx=0.5, fy=0.5)
         gray = process.grayImage(small)
@@ -79,16 +53,13 @@ while 1:
 
         cv.imshow("Live", inv)
 
-        black_pixels = find_black_pixels(inv)
-        distr_goals = random_distribution(black_pixels)
-
     i += 1
     if cv.waitKey(1) & 0xFF == ord('y'):
         print("Exiting")
         cv.destroyAllWindows()
         break
 
-    update(distr_goals)
+    update(random_distr.createRandomDistribution(inv))
     draw(screen)
     #pygame.time.delay(2)
 
