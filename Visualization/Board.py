@@ -2,6 +2,7 @@ import pygame
 from Visualization import Particle
 import random
 import time
+import pygame
 
 class Board:
 
@@ -16,11 +17,12 @@ class Board:
 
 
     def draw(self, screen):
-        color = pygame.Color(255, 0, 0, 255)
+        color = pygame.Color(8, 146, 208, 255)
 
         for particle in self.swarm:
             # print("Drawing at: " + str(particle.x) + ", " + str(particle.y))
-            pygame.draw.circle(screen, color, [int(particle.x), int(particle.y)], 3, 0)
+            pygame.gfxdraw.aacircle(screen, int(particle.x), int(particle.y), 5, color)
+            pygame.gfxdraw.filled_circle(screen, int(particle.x), int(particle.y), 5, color)
 
     def update(self):
 

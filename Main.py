@@ -70,8 +70,13 @@ cap = cv.VideoCapture(0)
 small = getFrame(cap)
 height, width, channels = small.shape
 swarm_number = 1000
+scalefactor = 3
+width = width * scalefactor
+height = height * scalefactor
+
 board = Board.Board(width, height, swarm_number)
 screen = pygame.display.set_mode([width, height])
+
 random_goals = queue.Queue()
 inv_image = queue.Queue()
 random_distr = RandomDistribution.RandomDistribution(swarm_number)

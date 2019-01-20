@@ -21,7 +21,7 @@ class RandomDistribution:
             for j in range(0, height):
 
                 if image[j][i] == 0:
-                    pixel = [i, j]
+                    pixel = [i * 3, j * 3]
                     return_arr.append(pixel)
 
         return return_arr
