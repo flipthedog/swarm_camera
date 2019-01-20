@@ -51,30 +51,56 @@ class Board:
 
     def chooseGoals(self, goals):
         start = time.time()
-        for particle in self.swarm:
-            partx = particle.x
-            party = particle.y
+
+        not_chosen_particles = self.swarm
+
+        for goal in goals:
+            x = goal[0]
+            y = goal[1]
+
 
             shortest_d = 999999
-            shortest_goal = goals[0]
+            closest_particle = self.swarm[0]
 
-            newGoals = []
+            new_array = []
 
-            for goal in goals:
-                x = goal[0]
-                y = goal[1]
-
-                dist = abs(partx - x) + abs(party - y)
+            for particle in not_chosen_particles:
+                dist = abs(particle.x - x) + abs(particle.y - y)
 
                 if dist < shortest_d:
-                    newGoals.append(shortest_goal)
+                    new_array.append(closest_particle)
                     shortest_d = dist
-                    shortest_goal = goal
+                    closest_particle = particle
                 else:
-                    newGoals.append(goal)
+                    new_array.append(closest_particle)
 
-            particle.setGoal(shortest_goal[0], shortest_goal[1])
-            goals = newGoals
-        end = time.time()
+            not_chosen_particles = new_array
+            closest_particle.setGoal(x, y)
+
+        # for particle in self.swarm:
+        #     partx = particle.x
+        #     party = particle.y
+        #
+        #     shortest_d = 999999
+        #     shortest_goal = goals[0]
+        #
+        #     newGoals = []
+        #
+        #     for goal in goals:
+        #         x = goal[0]
+        #         y = goal[1]
+        #
+        #         dist = abs(partx - x) + abs(party - y)
+        #
+        #         if dist < shortest_d:
+        #             newGoals.append(shortest_goal)
+        #             shortest_d = dist
+        #             shortest_goal = goal
+        #         else:
+        #             newGoals.append(goal)
+        #
+        #     particle.setGoal(shortest_goal[0], shortest_goal[1])
+        #     goals = newGoals
+        # end = time.time()
 
         # print("Time taken: " + str(end - start))

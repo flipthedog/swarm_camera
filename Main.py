@@ -24,8 +24,8 @@ def update():
 
 def update_draw(screen):
     # print("Retrieved: " + str(random_goals))
-    draw(screen)
     update()
+    draw(screen)
 
 
 def updateBoardGoals(board, random_distr):
@@ -51,7 +51,7 @@ def calc_goals(cap, random_queue, inv_queue, board):
         board.chooseGoals(random_goals)  # Choose goals, using specific distribution
 
         #print("Added to queue")
-        #ime.sleep(0.2)
+        # time.sleep(0.2)
 
 def getFrame(cap):
     ret, frame = cap.read()
