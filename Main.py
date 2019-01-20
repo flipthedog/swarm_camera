@@ -51,7 +51,7 @@ def calc_goals(cap, random_queue, inv_queue, board):
         board.chooseGoals(random_goals)  # Choose goals, using specific distribution
 
         #print("Added to queue")
-        time.sleep(0.2)
+        #ime.sleep(0.2)
 
 def getFrame(cap):
     ret, frame = cap.read()
@@ -69,7 +69,7 @@ timer = pygame.time.Clock()
 cap = cv.VideoCapture(0)
 small = getFrame(cap)
 height, width, channels = small.shape
-swarm_number = 2000
+swarm_number = 800
 scalefactor = 3
 width = width * scalefactor
 height = height * scalefactor
