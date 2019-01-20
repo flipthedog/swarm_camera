@@ -51,7 +51,7 @@ def calc_goals(cap, random_queue, inv_queue, board):
         board.chooseGoals(random_goals)  # Choose goals, using specific distribution
 
         #print("Added to queue")
-        #ime.sleep(0.2)
+        time.sleep(0.2)
 
 def getFrame(cap):
     ret, frame = cap.read()
@@ -73,9 +73,10 @@ swarm_number = 800
 scalefactor = 3
 width = width * scalefactor
 height = height * scalefactor
-
+pygame.display.set_caption("Swarm Camera")
 board = Board.Board(width, height, swarm_number)
-screen = pygame.display.set_mode([width, height])
+screen = pygame.display.set_mode([width, height], pygame.FULLSCREEN)
+pygame.display.set_icon(screen)
 
 random_goals = queue.Queue()
 inv_image = queue.Queue()
