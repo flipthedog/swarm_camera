@@ -1,11 +1,11 @@
 import pygame
-from swarm_camera.Visualization import Particle
+from Visualization import Particle
 import random
 
 class Board:
 
     def __init__(self, width, height, particle_number):
-        self.swarm = []
+        self.swarm = pygame.sprite.Group()
         self.width = width
         self.height = height
         self.particle_number = particle_number
@@ -23,15 +23,15 @@ class Board:
 
     def update(self):
 
-        for particle in self.swarm:
-            particle.update()
+        self.swarm.update()
 
     def addswarmparticle(self):
         x = random.randint(0, self.width)
         y = random.randint(0, self.height)
 
         p = Particle.Particle(x, y, self.width, self.height)
-        self.swarm.append(p)
+
+        self.swarm.add(p)
 
     def setRandomGoals(self):
 

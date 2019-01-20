@@ -1,5 +1,5 @@
 import random
-
+import time
 class RandomDistribution:
 
     def __init__(self, swarm_number):
@@ -7,7 +7,9 @@ class RandomDistribution:
 
     def createRandomDistribution(self, image):
         black_pixels = self.find_black_pixels(image)
-        return self.random_distribution(black_pixels)
+
+        rand_distr = self.random_distribution(black_pixels)
+        return rand_distr
 
     def find_black_pixels(self, image):
         return_arr = []

@@ -1,9 +1,14 @@
 import math
 import random
+import pygame
+import pygame.gfxdraw
 
-class Particle:
+class Particle(pygame.sprite.Sprite):
 
     def __init__(self, x, y, width, height):
+        super().__init__()
+
+        self.image = pygame.Surface([3, 3])
 
         self.width = width
         self.height = height
@@ -16,25 +21,25 @@ class Particle:
         self.ay = 0
         self.goalx = x
         self.goaly = y
-        self.velocity_mag = 1 # Speed of the particles
+        self.velocity_mag = 1  # Speed of the particles
 
-    def setGoal(self, x,y):
+    def setGoal(self, x, y):
         self.goalx = x
         self.goaly = y
 
     def goto(self):
 
         if abs(self.goalx - self.x) < 0.0000000001:
-            angle = math.atan2((self.goaly - self.y), (0.0000000001))
+            angle = math.atan2((self.goaly - self.y), 0.0000000001)
 
             self.vy = self.velocity_mag * (math.sin(angle))
 
             self.vx = self.velocity_mag * (math.cos(angle))
         else:
-            if self.distanceToGoal() > 3:
+            if self.distanceToGoal() > 1:
                 angle = math.atan2((self.goaly - self.y), (self.goalx - self.x))
 
-                #noise_factor = self.velocity_mag / 10
+                # noise_factor = self.velocity_mag / 10
                 noise_factor = 0
                 noise_1 = random.uniform(-noise_factor , noise_factor)
                 noise_2 = random.uniform(-noise_factor , noise_factor)
@@ -45,7 +50,7 @@ class Particle:
 
     # Return the distance to the goal
     def distanceToGoal(self):
-        return (abs(self.x - self.goalx) + abs(self.y - self.goaly))
+        return abs(self.x - self.goalx) + abs(self.y - self.goaly)
 
     def update(self):
         self.goto()
