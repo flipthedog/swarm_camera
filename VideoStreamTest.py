@@ -1,5 +1,5 @@
 import cv2 as cv
-from swarm_camera.ImageProcessing import process_image as process
+from ImageProcessing import process_image as process
 
 cap = cv.VideoCapture(0)
 while 1:
@@ -14,7 +14,7 @@ while 1:
     edge = process.edgeDetection(gray)
     inv = process.invertImage(edge)
 
-    print(inv.shape)
+    #print(inv.shape)
     cv.imshow("Live", inv)
     if cv.waitKey(1) & 0xFF == ord('y'):
         print("Exiting")
