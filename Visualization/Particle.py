@@ -20,7 +20,7 @@ class Particle():
         self.goaly = y
         self.velocity_mag = 5  # Speed of the particles
 
-        self.color = [255,255,255]
+        self.color = [32, 34, 38]
 
     def setGoal(self, x, y):
         self.goalx = x
