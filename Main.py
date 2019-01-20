@@ -10,6 +10,8 @@ import _thread
 import queue
 import time
 import numpy
+import winsound
+
 
 # Helper Functions
 def draw(screen):
@@ -63,6 +65,22 @@ def getFrame(cap):
     section = frame[x_min:x_max, y_min:y_max]
     return section
 
+def playSounds(board, synth):
+
+    while 1:
+        movers = 0
+        for particle in board.swarm:
+            if particle.isNear():
+                movers += 1
+
+        min_freq = 100
+        max_freq = 250
+        gap = max_freq - min_freq
+        frequency = int(min_freq + (movers/swarm_number) * gap)
+
+        winsound.PlaySound('sound.wav', winsound.SND_FILENAME)
+        #winsound.Beep(frequency, 100)
+
 # Initializations
 pygame.init()
 timer = pygame.time.Clock()
@@ -80,8 +98,10 @@ screen = pygame.display.set_mode([width, height])
 random_goals = queue.Queue()
 inv_image = queue.Queue()
 random_distr = RandomDistribution.RandomDistribution(swarm_number)
+moving_particles = 0
 
 t = _thread.start_new_thread(calc_goals, (cap,random_goals, inv_image, board))
+t2 = _thread.start_new_thread(playSounds, (board, 5))
 
 # cv.imshow("Live", inv_image.get())
 # Main Loop

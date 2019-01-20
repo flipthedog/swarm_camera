@@ -2,6 +2,8 @@ import math
 import random
 import pygame
 import pygame.gfxdraw
+import winsound
+import random
 
 class Particle():
 
@@ -21,6 +23,9 @@ class Particle():
         self.velocity_mag = 5  # Speed of the particles
 
         self.color = [32, 34, 38]
+
+        self.soundInt = random.randint(0, 50)
+        self.frequency = random.randint(200, 250)
 
     def setGoal(self, x, y):
         self.goalx = x
@@ -94,10 +99,21 @@ class Particle():
 
         if self.x > self.width:
             self.x = self.width
+        elif self.x < 0:
+            self.x = 0
         else:
             self.x += self.vx
 
         if self.y > self.height:
             self.y = self.height
+        elif self.y < 0:
+            self.y = 0
         else:
             self.y += self.vy
+
+    def isNear(self):
+
+        if self.distanceToGoal() < 50:
+            return True
+        else:
+            return False
