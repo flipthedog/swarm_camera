@@ -3,12 +3,9 @@ import random
 import pygame
 import pygame.gfxdraw
 
-class Particle(pygame.sprite.Sprite):
+class Particle():
 
     def __init__(self, x, y, width, height):
-        super().__init__()
-
-        self.image = pygame.Surface([3, 3])
 
         self.width = width
         self.height = height
@@ -21,7 +18,7 @@ class Particle(pygame.sprite.Sprite):
         self.ay = 0
         self.goalx = x
         self.goaly = y
-        self.velocity_mag = 1  # Speed of the particles
+        self.velocity_mag = 5  # Speed of the particles
 
     def setGoal(self, x, y):
         self.goalx = x
@@ -35,8 +32,9 @@ class Particle(pygame.sprite.Sprite):
             self.vy = self.velocity_mag * (math.sin(angle))
 
             self.vx = self.velocity_mag * (math.cos(angle))
+
         else:
-            if self.distanceToGoal() > 1:
+            if self.distanceToGoal() > self.velocity_mag:
                 angle = math.atan2((self.goaly - self.y), (self.goalx - self.x))
 
                 # noise_factor = self.velocity_mag / 10
@@ -47,6 +45,9 @@ class Particle(pygame.sprite.Sprite):
                 self.vy = self.velocity_mag * (math.sin(angle)) + noise_1
 
                 self.vx = self.velocity_mag * (math.cos(angle)) + noise_2
+            else:
+                self.vy = 0
+                self.vx = 0
 
     # Return the distance to the goal
     def distanceToGoal(self):
